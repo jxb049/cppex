@@ -2,7 +2,7 @@
 #include <climits>
 #include <math.h>
 
-double addition( double a, double b)
+double addition( double a, double b) 
 {
   return a+b;
 }
@@ -22,12 +22,36 @@ double division (double a, double b)
   return a/b;
 }
 
-double vectormag( double i, double j, double k, double l)
+double vectormag( double x, double y, double z, double t)
 {
-  return  sqrt(i*i+j*j+k*k+l*l);
+  return  sqrt(x*x+y*y+z*z+t*t);
 }
 
-//Check whether the input was correct
+void swap(double& a, double& b)
+{
+  double temp1 = 0;
+  temp1 = a;
+  a = b;
+  b = temp1;
+}
+
+//Function assigns the values a&b to temporary variables and then reassigns them
+void sort(double* a, int Size)
+{
+  double temp1 = 0;
+  for(int j=0; j< Size; j++)
+    {
+      for(int i=0; i < Size; i++)
+	{
+	  if(a[i] < a[i+1])
+	    {
+	      swap(a[i],a[i+1]);
+	    }
+	}
+    }
+}
+
+//Check whether the input was correct. If the input was correct cincheck is false.
 bool cincheck (bool a)
 {
   if (!a)
@@ -35,7 +59,22 @@ bool cincheck (bool a)
       std::cout << "You entered it wrong!";
       std::cin.clear();
       std::cin.ignore(INT_MAX, '\n');
+      return true;
     }
+  return false;
+}
+
+bool Quadratic(double i, double j, double k, double* x_pos, double* x_neg)
+{
+  double Disc = j*j-4*i*k;
+
+  if (Disc >= 0)
+    {   
+      *x_pos = (-j+sqrt(Disc))/(2*i);
+      *x_neg = (-j-sqrt(Disc))/(2*i);
+      return true;
+    }
+  return false;
 }
 
 
@@ -55,13 +94,13 @@ int main()
   //Behaves as an infinite loop until conditions within end the loop
   while(std::cin)
   {
-    std::cout << "What operation would you like to perform? (a=addition, s=subtraction, m=multiplication and d=division, q to quit or e for extra functions.) ";
+    std::cout << "What operation would you like to perform?" << std::endl << "(a) addition, " << std::endl << "(s) subtraction," << std::endl << "(m) multiplication" << std::endl << "(d) division" << std::endl << "(q) to quit" << std::endl << "or (e) for extra functions" << std::endl;
     std::cin >> c;
 
     //Extra functions
     if(c == 'e')
       {
-	std::cout << "Would you like to (a) Calculate the intercept of a line on the x-axis, (b) Solve a quadratic equation, (c) Calculate the length of 3 and 4 vectors or (d) Calculate the invariant mass of two particles or (q) quit?" << std::endl;
+	std::cout << "Would you like to: " << std::endl << "(a) Calculate the intercept of a line on the x-axis, " << std::endl << "(b) Solve a quadratic equation, " << std::endl << "(c) Calculate the length of 3 and 4 vectors or " << std::endl << "(d) Calculate the invariant mass of two particles, " << std::endl << "(e) Order a group of numbers from highest to lowest, " << std::endl << "(q) quit?" << std::endl;
 	std::cin >> e; 
       }
     else if(c == 'a' || c == 's' || c == 'm' || c == 'd') // The basic functions
@@ -110,11 +149,25 @@ int main()
 	std::cin >> k;
 	if(cincheck(std::cin))	    continue;
 
-	double s_1 = (-j+sqrt(j*j-4*i*k))/(2*i);
-	double s_2 = (-j-sqrt(j*j-4*i*k))/(2*i) ;
+	double* x_pos;
+	double* x_neg;
 
-        std::cout << "You inputted the equation 0=" << i << "x^2+" << j << "x+"<< k << std::endl;
-	std::cout << "The solutions to this are x=" << s_1 << " and x=" << s_2 << std::endl;
+	x_pos = new double;
+	x_neg = new double;
+
+	bool OK = Quadratic(i,j,k,x_pos,x_neg);
+
+	if(OK)
+	  {
+	    std::cout << "You inputted the equation 0=" << i << "x^2+" << j << "x+"<< k << std::endl;
+	    std::cout << "The solutions to this are x=" << *x_pos << " and x=" << *x_neg << std::endl;
+	  }
+	else
+	  {
+	    std::cout << "The solutions to this quadratic are either imaginary or the input was incorrect." << std::endl;
+	    continue;
+	  }
+
       }
     else if(e == 'c' &&  c != 'q') //Magnitude of the 3/4 vector
       {
@@ -158,6 +211,37 @@ int main()
 	double M = sqrt(E*E - vectormag(px,py,pz,0)*vectormag(px,py,pz,0));
 
 	std::cout << "The invariant mass is: " << M << std::endl;
+      }
+    else if(e == 'e' && c != 'q') 
+      {
+
+	int Size;
+
+	std::cout << "How big is your array? " << std::endl;
+	std::cin >> Size;
+	if(cincheck(std::cin))	    continue;
+
+	double x[Size];
+	
+	for(int k=0; k<Size; k++)
+	  {
+	    std::cout << "Enter a value for element " << k << ": " <<  std::endl;
+	    std::cin >> x[k];
+	    if(cincheck(std::cin))	    continue;
+	  }
+
+	double *x_point = x;
+
+	sort(x_point, Size);
+
+
+	std::cout << "Your elements are now have been sorted into the order of: " << std::endl;
+
+	for(int k=0; k<Size; k++)
+	  {
+	    std::cout << x[k] << std::endl;
+	  }
+
       }
     else if(c=='a') d = addition(a,b); 
     else if(c=='s') d = subtraction(a,b);
