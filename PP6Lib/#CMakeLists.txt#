@@ -1,0 +1,20 @@
+ - Main CMake script for pp6calculator
+# Comments in CMake begin with a '#' just like shell and python scripts
+#
+# - Require latest generation of CMake
+cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
+
+# - Declare the project
+project(cppex)
+
+# - Tell compiler where to find headers
+include_directories(PP6Lib)
+
+# - Add the PP6Lib library
+add_library(pp6lib SHARED PP6Lib/PP6Math.hpp PP6Lib/PP6Math.cpp)
+
+# - Add the pp6calculator program
+add_executable(ex2 ex2.cpp)
+
+# - Link ex2 to the pp6lib library
+target
