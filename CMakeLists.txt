@@ -13,19 +13,20 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 # - Tell compiler where to find headers
-include_directories(PP6Lib Week1 Week2 FileReader)
+include_directories(PP6Lib Week1 Week2 Week3 FileReader)
 
 # - Add the PP6Lib library
 add_subdirectory(PP6Lib)
 add_subdirectory(Week1)
 add_subdirectory(Week2)
+add_subdirectory(Week3)
 add_subdirectory(FileReader)
 
 # - Add the pp6calculator program
 add_executable(ex2 ex2.cpp)
 
 # - Link ex2 to the pp6lib library
-target_link_libraries(ex2 pp6lib Week1 Week2 FileReader)
+target_link_libraries(ex2 pp6lib Week1 Week2 Week3 FileReader)
 
 # - Install pp6calculator to the bin subdirectory of CMAKE_INSTALL_PREFIX
 install(TARGETS ex2 DESTINATION bin)
