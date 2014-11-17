@@ -166,7 +166,7 @@ void Week2Functions(double Week)
 		  E_mupos[i] = vectormag(Mupos_px[i],Mupos_py[i],Mupos_pz[i],Muon_Mass);
 		  E_muneg[j] = vectormag(Muneg_px[j],Muneg_py[j],Muneg_pz[j],Muon_Mass);
 
-	   	  Inv_Mass[100*i+j]=((E_mupos[i]+E_muneg[j])*(E_mupos[i]+E_muneg[j])-(Mupos_px[i]+Muneg_px[j])*(Mupos_px[i]+Muneg_px[j])-(Mupos_py[i]+Muneg_py[j])*(Mupos_py[i]+Muneg_py[j])-(Mupos_pz[i]+Muneg_pz[j])*(Mupos_pz[i]+Muneg_pz[j]));
+	   	  Inv_Mass[100*i+j]=sqrt(((E_mupos[i]+E_muneg[j])*(E_mupos[i]+E_muneg[j])-(Mupos_px[i]+Muneg_px[j])*(Mupos_px[i]+Muneg_px[j])-(Mupos_py[i]+Muneg_py[j])*(Mupos_py[i]+Muneg_py[j])-(Mupos_pz[i]+Muneg_pz[j])*(Mupos_pz[i]+Muneg_pz[j])));
  
 		  //std::cout << Inv_Mass[10*i+j] << std::endl;
 		   TotalCombinations = 100*i+j;
