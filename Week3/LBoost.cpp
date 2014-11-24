@@ -26,6 +26,41 @@ FourVector* FourVector::applyLBoost( double v) const
   return BoostedFourVec;
 }
 
+FourVector* FourVector::operator+=(const FourVector* rhs)
+{
+  m_x += rhs->m_x;
+  m_y += rhs->m_y;
+  m_z += rhs->m_z;
+  m_t += rhs->m_t;
+  return this;
+}
+
+FourVector* FourVector::operator-=(const FourVector* rhs)
+{
+  m_x -= rhs->m_x;
+  m_y -= rhs->m_y;
+  m_z -= rhs->m_z;
+  m_t -= rhs->m_t;
+  return this;
+}
+
+/*FourVector* FourVector::operator=(const FourVector rhs)
+{
+  if (&rhs != this)
+    {
+      m_x = rhs.m_x;
+      m_y = rhs.m_y;
+      m_z = rhs.m_z;
+      m_t = rhs.m_t;
+      return this;
+    }
+  else
+    {
+      std::cout << "They are already the same." << std::endl;
+      return 0;
+    }
+    }*/
+
 void FourVector::PrintFourVec()
 {
   std::cout << "Your new boosted components are..." << std::endl;

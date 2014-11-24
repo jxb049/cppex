@@ -8,8 +8,7 @@
 #include <climits>
 #include <math.h>
 
-//Opens the data file and gives it the reference ObsParticles
-FileReader ObsParticles("/home/jxb/mpagspp6-upstream/pp6calculator_jxb.git/observedparticles.dat");
+
 
 //Function to generate a random integer
 double GenerateRandom()
@@ -123,6 +122,10 @@ void Week2Functions(double Week)
 	  double Inv_Mass[10000]; //All the combinations of invariant mass
 
 	  double Muon_Mass = 0.1057; //Muon mass in GeV
+	  
+	  //Opens the data file and gives it the reference ObsParticles
+	  FileReader ObsParticles("/home/jxb/mpagspp6-upstream/pp6calculator_jxb.git/observedparticles.dat");	
+	  
 	  
 	  // Only process if the file is open/valid
 	  if (ObsParticles.isValid()) {

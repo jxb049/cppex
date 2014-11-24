@@ -11,6 +11,9 @@ public:
 
   //Member Functions
   FourVector* applyLBoost(double v) const;//Takes old FourVector and creates new boosted one - retains old.
+  FourVector* operator+=(const FourVector* rhs);
+  FourVector* operator-=(const FourVector* rhs);
+  // FourVector* operator=(const FourVector rhs);
   void PrintFourVec(); //Outputs the four vectors
   double VecLength() const;
   double interval() const;
